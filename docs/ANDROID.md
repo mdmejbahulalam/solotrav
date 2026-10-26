@@ -60,3 +60,6 @@ Emulator: Extended controls → Location → *Routes* (play a GPX route) or *Sin
 
 ## Status
 A debug APK (arm64-v8a, `com.solotrav.app`, ~80 MB) built successfully with placeholder Supabase values. It has **not been installed or run on a device/emulator**, and real Supabase/Maps keys must be supplied at build time (`EXPO_PUBLIC_*`).
+
+The published release APK contains both arm64-v8a (phones) and x86_64 (emulator) so the same file can be tested on either; build with -PreactNativeArchitectures=arm64-v8a,x86_64.
+
