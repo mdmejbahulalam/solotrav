@@ -1,0 +1,41 @@
+{
+  "name": "solotrav",
+  "private": true,
+  "version": "0.1.0",
+  "description": "SoloTrav: travel social network (web, admin, Android, Supabase)",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=20.19"
+  },
+  "scripts": {
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "test:db": "vitest run --project db",
+    "test:unit": "vitest run --project unit",
+    "web": "npm run dev -w @solotrav/web",
+    "admin": "npm run dev -w @solotrav/admin",
+    "mobile": "npm run start -w @solotrav/mobile"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.0",
+    "@types/node": "^22.0.0",
+    "eslint": "^10.13.0",
+    "eslint-config-prettier": "^10.0.0",
+    "prettier": "^3.9.10",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.72.0",
+    "vitest": "^4.1.12",
+    "@electric-sql/pglite": "^0.5.11"
+  },
+  "type": "module",
+  "overrides": {
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  }
+}

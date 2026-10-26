@@ -1,0 +1,146 @@
+@import 'tailwindcss';
+
+/* Tokens mirror packages/ui-tokens (design system v1.0). Dark mode follows the system unless data-theme is set. */
+:root {
+  --st-primary: #1769ff;
+  --st-primary-pressed: #0b43ad;
+  --st-primary-soft: #eaf1ff;
+  --st-navy: #102a43;
+  --st-teal: #19b5a5;
+  --st-teal-text: #0e7c70;
+  --st-teal-soft: #e3f6f3;
+  --st-coral: #ff7657;
+  --st-coral-text: #c8401f;
+  --st-coral-soft: #ffefea;
+  --st-background: #f7f9fc;
+  --st-surface: #ffffff;
+  --st-text: #182230;
+  --st-text-secondary: #5b6678;
+  --st-text-body: #3b4658;
+  --st-border: #e5eaf0;
+  --st-control: #8793a6;
+  --st-muted-fill: #f1f4f8;
+  --st-success: #0f7a55;
+  --st-success-fill: #15966a;
+  --st-success-soft: #e3f5ee;
+  --st-warning: #9a6200;
+  --st-error: #c23535;
+  color-scheme: light;
+}
+:root[data-theme='dark'] {
+  --st-primary: #5b97ff;
+  --st-primary-pressed: #3c7bea;
+  --st-primary-soft: #14305a;
+  --st-navy: #f1f5fa;
+  --st-teal: #3ccfbf;
+  --st-teal-text: #3ccfbf;
+  --st-teal-soft: #0f3a38;
+  --st-coral-text: #ff9a80;
+  --st-coral-soft: #4a2a22;
+  --st-background: #0b1622;
+  --st-surface: #12202f;
+  --st-text: #eaf0f7;
+  --st-text-secondary: #a5b2c3;
+  --st-text-body: #c9d4e2;
+  --st-border: #26374a;
+  --st-control: #5c6e85;
+  --st-muted-fill: #1a2b3d;
+  --st-success: #3dc291;
+  --st-success-soft: #12372b;
+  --st-warning: #e6a23c;
+  --st-error: #f07a7a;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']):not([data-theme='dark']) {
+    --st-primary: #5b97ff;
+    --st-primary-pressed: #3c7bea;
+    --st-primary-soft: #14305a;
+    --st-navy: #f1f5fa;
+    --st-teal: #3ccfbf;
+    --st-teal-text: #3ccfbf;
+    --st-teal-soft: #0f3a38;
+    --st-coral-text: #ff9a80;
+    --st-coral-soft: #4a2a22;
+    --st-background: #0b1622;
+    --st-surface: #12202f;
+    --st-text: #eaf0f7;
+    --st-text-secondary: #a5b2c3;
+    --st-text-body: #c9d4e2;
+    --st-border: #26374a;
+    --st-control: #5c6e85;
+    --st-muted-fill: #1a2b3d;
+    --st-success: #3dc291;
+    --st-success-soft: #12372b;
+    --st-warning: #e6a23c;
+    --st-error: #f07a7a;
+    color-scheme: dark;
+  }
+}
+
+@theme inline {
+  --color-primary: var(--st-primary);
+  --color-primary-pressed: var(--st-primary-pressed);
+  --color-primary-soft: var(--st-primary-soft);
+  --color-navy: var(--st-navy);
+  --color-teal: var(--st-teal);
+  --color-teal-text: var(--st-teal-text);
+  --color-teal-soft: var(--st-teal-soft);
+  --color-coral: var(--st-coral);
+  --color-coral-text: var(--st-coral-text);
+  --color-coral-soft: var(--st-coral-soft);
+  --color-bg: var(--st-background);
+  --color-surface: var(--st-surface);
+  --color-ink: var(--st-text);
+  --color-muted: var(--st-text-secondary);
+  --color-body: var(--st-text-body);
+  --color-line: var(--st-border);
+  --color-control: var(--st-control);
+  --color-fill: var(--st-muted-fill);
+  --color-ok: var(--st-success);
+  --color-ok-fill: var(--st-success-fill);
+  --color-ok-soft: var(--st-success-soft);
+  --color-warn: var(--st-warning);
+  --color-bad: var(--st-error);
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --radius-card: 20px;
+}
+
+html {
+  background: var(--st-background);
+}
+body {
+  background: var(--st-background);
+  color: var(--st-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  font-variant-numeric: normal;
+}
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--st-primary) 55%, white);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+[hidden] {
+  display: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+.skeleton {
+  background: linear-gradient(90deg, var(--st-border), color-mix(in srgb, var(--st-border) 50%, transparent), var(--st-border));
+  background-size: 200% 100%;
+  animation: shimmer 1.2s infinite;
+  border-radius: 10px;
+}
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
