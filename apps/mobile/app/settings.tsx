@@ -1,5 +1,4 @@
-import { useRouter } from 'expo-router';
-import { useEffect, useState } from 'react';
+﻿import { useEffect, useState } from 'react';
 import { Alert, Linking, Pressable, ScrollView, View } from 'react-native';
 import * as Location from 'expo-location';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -12,7 +11,6 @@ import { Button, Card, Field, Notice, Text, ToggleRow, TopBar } from '@/ui/kit';
 import { useTheme } from '@/ui/theme';
 
 export default function Settings() {
-  const router = useRouter();
   const { c } = useTheme();
   const [p, setP] = useState<Profile | null>(null);
   const [name, setName] = useState('');

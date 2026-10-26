@@ -39,11 +39,12 @@ Full setup (Supabase project, Google OAuth, Google Maps keys, Android build): **
 | Check | Status |
 |---|---|
 | `npm test` | **passing**: unit tests + database tests (RLS, GPS sync, moderation, privacy, offline journeys, two end-to-end flows) |
-| `npm run lint`, `npm run typecheck` | passing for all workspaces |
+| `npm run lint`, `npm run typecheck` | passing for all workspaces (mobile included) |
 | `next build` (web, admin) | passing |
+| `npm run e2e` (Playwright, installed Chrome) | **passing**: 40 browser smoke tests on desktop and phone viewports (public pages, sign-in guards, admin access, security headers). Authenticated journeys are covered at the data layer |
 | Android JS bundle (`expo export`) | passing (Hermes bytecode produced) |
-| **Android APK** | debug APK **built** (arm64, placeholder Supabase values, `dist/solotrav-debug.apk`); **not run on a device**, not release-signed; see [docs/ANDROID.md](docs/ANDROID.md) |
-| Live Supabase project | **not exercised.** Migrations were executed against Postgres via PGlite; storage/auth are emulated in tests |
+| **Android APK** | debug APK **built** (arm64 + x86_64) and **run on the Android emulator** against the live Supabase project: login, sign-up, email confirmation and Explore verified by hand; trips, tracking and posting not yet verified; not release-signed; see [docs/ANDROID.md](docs/ANDROID.md) |
+| Live Supabase project | all 13 migrations applied to a hosted project; anonymous-access checks and the Supabase security advisor reviewed; sign-up and login verified from the emulator. Other authenticated flows, storage uploads and Realtime are **not yet exercised** live |
 | Google Maps / Places / Routes | integration code written; **not exercised** (no keys); clear "not configured" states are shown instead |
 | Google sign-in, push, email | wired but need provider configuration; not exercised |
 | Real-device GPS | not exercised; logic is tested with mocked coordinates |

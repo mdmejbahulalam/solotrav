@@ -1,4 +1,4 @@
-import { LinearGradient } from 'expo-linear-gradient';
+﻿import { LinearGradient } from 'expo-linear-gradient';
 import { useFocusEffect, useRouter } from 'expo-router';
 import { useCallback, useState } from 'react';
 import { Alert, Pressable, ScrollView, Share, View } from 'react-native';
@@ -8,7 +8,7 @@ import { enrich, type FeedPost } from '@/lib/feed';
 import { getActiveSession } from '@/tracking/store';
 import type { Profile } from '@solotrav/shared-types';
 import { ArtThumb } from '@/ui/Art';
-import { Icon, type IconName } from '@/ui/icons';
+import type { IconName } from '@/ui/icons';
 import { Avatar, Button, Card, Divider, EmptyState, ListRow, Notice, Text } from '@/ui/kit';
 import { PostCard } from '@/ui/PostCard';
 import { useTheme } from '@/ui/theme';

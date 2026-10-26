@@ -19,3 +19,6 @@ supabase/.temp
 .idea
 *.log
 .claude
+
+test-results
+playwright-report

@@ -1,4 +1,4 @@
-import * as Location from 'expo-location';
+import type * as Location from 'expo-location';
 import * as TaskManager from 'expo-task-manager';
 import { getActiveSession, insertPoint } from '@/tracking/store';
 

@@ -15,17 +15,17 @@
     "@solotrav/shared-types": "*",
     "@solotrav/ui-tokens": "*",
     "@solotrav/validation": "*",
-    "@supabase/ssr": "^0.12.7",
-    "@supabase/supabase-js": "^2.118.0",
-    "next": "^16.4.3",
+    "@supabase/ssr": "0.12.7",
+    "@supabase/supabase-js": "2.118.0",
+    "next": "16.4.3",
     "react": "19.3.0",
     "react-dom": "19.3.0",
-    "zod": "^4.6.7"
+    "zod": "4.6.7"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.3.3",
-    "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0",
-    "tailwindcss": "^4.3.3"
+    "@tailwindcss/postcss": "4.3.3",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "tailwindcss": "4.3.3"
   }
 }

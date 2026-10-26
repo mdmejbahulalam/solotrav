@@ -24,6 +24,8 @@ export function RouteEstimate({ points, onResult }: { points: Array<{ lat: numbe
       })
       .catch((e) => { if (e.name !== 'AbortError') { setState({ status: 'error', message: 'The route estimate could not be loaded. You can continue without it.' }); onResult?.(null); } });
     return () => ctrl.abort();
+    // Re-run only when the stops change: `points` is covered by `key`, and the callback's identity must not retrigger billable requests.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key]);
 
   if (state.status === 'idle') return <p className="text-sm text-muted">Add at least two stops to see a route estimate.</p>;

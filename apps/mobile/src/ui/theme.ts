@@ -1,4 +1,4 @@
-import { useColorScheme } from 'react-native';
+﻿import { useColorScheme } from 'react-native';
 import { colors, darkColors, radii, spacing, typography, touchTarget, mapColors } from '@solotrav/ui-tokens';
 
 /** Inter, loaded in the root layout (assets/fonts). Android needs one family name per weight. */
@@ -11,6 +11,7 @@ export const FONT = {
 } as const;
 export type Weight = keyof typeof FONT;
 
+/* eslint-disable @typescript-eslint/no-require-imports -- bundler asset requires */
 export const FONT_FILES = {
   [FONT.regular]: require('../../assets/fonts/Inter_400Regular.ttf'),
   [FONT.medium]: require('../../assets/fonts/Inter_500Medium.ttf'),
@@ -18,6 +19,7 @@ export const FONT_FILES = {
   [FONT.bold]: require('../../assets/fonts/Inter_700Bold.ttf'),
   [FONT.extrabold]: require('../../assets/fonts/Inter_800ExtraBold.ttf'),
 };
+/* eslint-enable @typescript-eslint/no-require-imports */
 
 export function useTheme() {
   const scheme = useColorScheme();

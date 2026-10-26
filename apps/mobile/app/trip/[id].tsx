@@ -7,7 +7,7 @@ import { api, errorMessage } from '@/lib/api';
 import { formatDistance, haversineMeters, proximityHint, tripProgress } from '@solotrav/business-logic';
 import { Art, artKindForCategory } from '@/ui/Art';
 import { Icon } from '@/ui/icons';
-import { Button, Card, Chip, EmptyState, Field, Notice, Pill, Screen, Segments, Skeleton, Text } from '@/ui/kit';
+import { Button, Card, EmptyState, Field, Notice, Pill, Screen, Segments, Skeleton, Text } from '@/ui/kit';
 import { TripMap, type MapPin } from '@/ui/Map';
 import { shadow, useTheme } from '@/ui/theme';
 
