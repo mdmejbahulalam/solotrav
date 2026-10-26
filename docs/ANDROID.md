@@ -19,10 +19,22 @@ npm run start                              # Metro for the dev client
 Or with EAS: `eas build -p android --profile development`.
 
 ## Release APK / AAB
-1. Create a keystore (keep it **out of git**): `keytool -genkeypair -v -storetype PKCS12 -keystore solotrav-release.keystore -alias solotrav -keyalg RSA -keysize 2048 -validity 10000`.
-2. Provide signing values via `~/.gradle/gradle.properties` or EAS credentials (`SOLOTRAV_UPLOAD_STORE_FILE`, `…_STORE_PASSWORD`, `…_KEY_ALIAS`, `…_KEY_PASSWORD`). Never commit them.
-3. `./gradlew assembleRelease` (APK) or `./gradlew bundleRelease` (AAB for Google Play). Get the SHA-1 with `keytool -list -v -keystore ...` and add it to the Android Maps key restriction **and** the Google OAuth Android client.
-4. Bump `ANDROID_VERSION_CODE` for every upload.
+A release build bundles the JavaScript into the app, so it runs on a phone without Metro or a PC.
+
+1. Create a keystore **outside the repository** and back it up. If you lose it you can never ship an update to the same installed app:
+   `keytool -genkeypair -v -storetype PKCS12 -keystore C:\Users\<you>\keys\solotrav-release.keystore -alias solotrav -keyalg RSA -keysize 2048 -validity 10000`
+   (`keytool` is in Android Studio's `jbr\bin`). Choose the passwords yourself.
+2. Put the signing values in your **user-level** `~/.gradle/gradle.properties` (never in the repo):
+   ```
+   SOLOTRAV_UPLOAD_STORE_FILE=C:/Users/<you>/keys/solotrav-release.keystore
+   SOLOTRAV_UPLOAD_STORE_PASSWORD=...
+   SOLOTRAV_UPLOAD_KEY_ALIAS=solotrav
+   SOLOTRAV_UPLOAD_KEY_PASSWORD=...
+   ```
+   `plugins/withReleaseSigning.js` (listed in `app.config.ts`) wires these into the generated project. Without them a release build **stops with an error**; it never falls back to the debug key.
+3. Build with the real public app settings in the environment (they are compiled into the bundle): `EXPO_PUBLIC_SUPABASE_URL`, `EXPO_PUBLIC_SUPABASE_ANON_KEY`, optionally `GOOGLE_MAPS_ANDROID_KEY`. Then `./gradlew assembleRelease -PreactNativeArchitectures=arm64-v8a` (APK, `app/build/outputs/apk/release/app-release.apk`) or `./gradlew bundleRelease` (AAB for Google Play).
+4. Get the SHA-1 with `keytool -list -v -keystore ...` and add it to the Android Maps key restriction **and** the Google OAuth Android client.
+5. Bump `ANDROID_VERSION_CODE` for every upload. Verify the signature with `apksigner verify --print-certs app-release.apk`.
 
 ## Permissions (see `app.config.ts`)
 Fine/coarse location, foreground service + foreground-service-location, notifications, camera, media read. Blocked: `RECORD_AUDIO`, `SYSTEM_ALERT_WINDOW`. No background-location permission. Play Console will ask for a foreground-service-location declaration: the justification is "user-initiated journey recording shown with a persistent notification".

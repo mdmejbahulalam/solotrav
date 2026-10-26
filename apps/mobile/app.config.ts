@@ -41,6 +41,7 @@ const config: ExpoConfig = {
     ],
   },
   plugins: [
+    './plugins/withReleaseSigning.js',
     'expo-router',
     ['expo-splash-screen', { image: './assets/splash-icon.png', imageWidth: 200, resizeMode: 'contain', backgroundColor: '#1769FF' }],
     'expo-sqlite',

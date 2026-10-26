@@ -21,7 +21,7 @@ function href(n: { entity_type: string; entity_id: string | null; notification_t
 export default async function NotificationsPage() {
   await requireUser('/notifications');
   const db = await createServerSupabase();
-  const { data } = await db.from('notifications').select('id,notification_type,entity_type,entity_id,read_at,created_at,actor:profiles(username,display_name,avatar_url)').order('created_at', { ascending: false }).limit(80);
+  const { data } = await db.from('notifications').select('id,notification_type,entity_type,entity_id,read_at,created_at,actor:profiles!notifications_actor_id_fkey(username,display_name,avatar_url)').order('created_at', { ascending: false }).limit(80);
   const items = data ?? [];
   const unread = items.filter((n) => !n.read_at).length;
 

@@ -205,7 +205,7 @@ export const trips = (db: Db) => ({
     const trip = (await run(db.from('trips').select('*').eq('id', tripId).maybeSingle())) as Trip | null;
     if (!trip) return null;
     const stops = (await run(db.from('trip_stops').select('*, destination:destinations(id,slug,name,region,country,latitude,longitude,category,image_path)').eq('trip_id', tripId).order('stop_order'))) as Array<TripStop & { destination: Destination | null }>;
-    const members = (await run(db.from('trip_members').select('*, profile:profiles(username,display_name,avatar_url)').eq('trip_id', tripId))) as Array<{ user_id: string; role: string; invitation_status: string; profile: { username: string } }>;
+    const members = (await run(db.from('trip_members').select('*, profile:profiles!trip_members_user_id_fkey(username,display_name,avatar_url)').eq('trip_id', tripId))) as Array<{ user_id: string; role: string; invitation_status: string; profile: { username: string } }>;
     return { trip, stops, members };
   },
   /** One RLS-filtered call for the public page. Never contains raw GPS. Safe to call without a session. */
@@ -402,7 +402,7 @@ export const social = (db: Db) => ({
     return (await run(db.rpc('search_all', { p_query: q, p_kind: kind, p_limit: limit, p_offset: offset }))) as Array<{ kind: string; id: string; title: string; subtitle: string | null; handle: string | null; score: number }>;
   },
   async notifications(limit = 30) {
-    return await run(db.from('notifications').select('*, actor:profiles(username,display_name,avatar_url)').order('created_at', { ascending: false }).limit(limit));
+    return await run(db.from('notifications').select('*, actor:profiles!notifications_actor_id_fkey(username,display_name,avatar_url)').order('created_at', { ascending: false }).limit(limit));
   },
   async markNotificationsRead(ids?: string[]) {
     const { data, error } = await db.rpc('mark_notifications_read', { p_ids: ids ?? null });

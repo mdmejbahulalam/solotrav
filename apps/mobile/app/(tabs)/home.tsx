@@ -46,14 +46,13 @@ export default function Home() {
   }, [cursor, scope]);
 
   const loadSide = useCallback(async () => {
-    try {
-      const a = api();
-      const [profile, notes, d, sug] = await Promise.all([a.profiles.me(), a.social.notifications(30), a.destinations.search('', undefined, 8), a.profiles.suggestions(10)]);
-      if (profile) setMe({ username: profile.username, display_name: profile.display_name });
-      setUnread((notes as unknown as Array<{ read_at: string | null }>).filter((n) => !n.read_at).length);
-      setDests(d as unknown as Dest[]);
-      setPeople(sug as unknown as Traveler[]);
-    } catch { /* side panels are optional; the feed shows its own error */ }
+    const a = api();
+    // Independent requests: one failing must not blank the others (the feed shows its own error state).
+    const [profile, notes, d, sug] = await Promise.allSettled([a.profiles.me(), a.social.notifications(30), a.destinations.search('', undefined, 8), a.profiles.suggestions(10)]);
+    if (profile.status === 'fulfilled' && profile.value) setMe({ username: profile.value.username, display_name: profile.value.display_name });
+    if (notes.status === 'fulfilled') setUnread((notes.value as unknown as Array<{ read_at: string | null }>).filter((n) => !n.read_at).length);
+    if (d.status === 'fulfilled') setDests(d.value as unknown as Dest[]);
+    if (sug.status === 'fulfilled') setPeople(sug.value as unknown as Traveler[]);
   }, []);
 
   useEffect(() => { void Promise.all([load(true), loadSide()]).finally(() => setLoading(false)); }, []); // eslint-disable-line react-hooks/exhaustive-deps

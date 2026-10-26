@@ -14,9 +14,15 @@ export default tseslint.config(
     rules: { 'react-hooks/rules-of-hooks': 'error', 'react-hooks/exhaustive-deps': 'warn' },
   },
   {
-    files: ['apps/mobile/metro.config.js'],
+    files: ['apps/mobile/metro.config.js', 'apps/mobile/plugins/*.js'],
     languageOptions: { globals: { require: 'readonly', module: 'writable', __dirname: 'readonly' } },
     rules: { '@typescript-eslint/no-require-imports': 'off' },
+  },
+  {
+    // Node scripts (run by hand); `document` is only used inside a page.evaluate() callback that runs in the browser.
+    files: ['apps/mobile/scripts/*.mjs'],
+    languageOptions: { globals: { console: 'readonly', document: 'readonly' } },
+    rules: { 'no-console': 'off' },
   },
   {
     rules: {
